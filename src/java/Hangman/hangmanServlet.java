@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/hangmanServlet"})
 public class hangmanServlet extends HttpServlet {
 
-    private Hangman.Game game = new Hangman.Game();
-    private Cookie c = null; 
+    //private Hangman.Game game = new Hangman.Game();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
@@ -27,7 +26,7 @@ public class hangmanServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         Hangman.Game game = (Hangman.Game)session.getAttribute("game");
-        //History history = null;
+        Data.History history = null;
         int result;
         if (game==null){
             // this must be a new session, so we will start a new Game
@@ -51,13 +50,14 @@ public class hangmanServlet extends HttpServlet {
               session.invalidate();  // destory the session
               request.setAttribute("displayWord", game.getDisplayWord());
               request.setAttribute("state", Integer.toString(game.getState()));
-              //game.win();
+              //request.setAttribute("")
+              game.win();
               getServletContext().getRequestDispatcher("/winGame.jsp").forward(request,response);
         } else if (result==3){
               // lose
               session.invalidate();  // destory the session
               request.setAttribute("word", game.getWord());
-             //game.lose();
+              game.lose();
               getServletContext().getRequestDispatcher("/loseGame.jsp").forward(request,response);
         } else {
               // continue game

@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Game contains logic to play hangman game.
  * Includes code to generate new words,
  * process user guess, determine win or lose.
- * @author David
+ * @author Austin Hasemeyer
  * @version 1.0
  */
 public class Game {
@@ -27,6 +27,7 @@ public class Game {
     private StringBuffer displayWord; // part of the word (if any) to show user
     private ArrayList<String> wordlist;  // list of words
     private boolean debug = false;
+    private Data.History history = null;
     
     
     @Override
@@ -63,13 +64,28 @@ public class Game {
         else 
             word = WordPicker.getWord();
         createDisplayWord();
-        //history = HangmanDB.createHistory(word,username); 
-        //System.out.println("Game  history="+history);    
+        String username = "Austin";                         // Hardcoded for just one name
+        history = Data.DBUtil.createHistory(word,username); 
+        System.out.println("Game  history="+history);    
     }
     
     public void win()
     {
-        
+        System.out.println("Game.win history="+history);
+        if (history != null) {
+            history.winGame();
+            Data.DBUtil.updateHistory(history);
+        }
+    }
+    
+    
+    public void lose()
+    {
+        System.out.println("Game.lose history="+history);
+        if (history != null) {
+            history.loseGame();
+            Data.DBUtil.updateHistory(history);
+        }
     }
     
     

@@ -3,7 +3,7 @@ package Data;
 import javax.persistence.*;
 /**
  *
- * @author david
+ * @author austin hasemeyer
  */
 public class DBUtil {
     
@@ -57,7 +57,7 @@ public class DBUtil {
     }
     
     
-    /*
+    
     public static History createHistory(String word, String userName){
         try {
         System.out.println("createHistory start.");
@@ -92,5 +92,5 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-*/
+
 }
