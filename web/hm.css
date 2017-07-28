@@ -1,0 +1,45 @@
+/**
+ * From https://csumb.edu/affairs/official-colors?_search=csumb+colors
+ * 
+ * Bay Blue
+ * #002a4e
+ * Valley Green
+ * #446a59
+ * Golden Sand
+ * #8b7e56
+ */
+
+input[type=text], input[type=password] {
+    border: 2px solid #002a4e;
+    border-radius: 4px;
+}
+
+input[type=submit], legend {
+    background-color: #002a4e;
+    border: 2px solid #002a4e;
+    border-radius: 4px;
+    color: white;
+}
+
+fieldset {
+    color: white;
+    background-color: #8b7e56;
+    border-color: #446a59;
+    border-radius: 4px;
+}
+
+a {
+    color: #002a4e;
+}
+
+header {
+    border: none;
+}
+
+section {
+    float: right;
+}
+
+aside {
+    float: left;
+}

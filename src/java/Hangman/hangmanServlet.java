@@ -28,7 +28,18 @@ public class hangmanServlet extends HttpServlet {
         Hangman.Game game = (Hangman.Game)session.getAttribute("game");
         Data.History history = null;
         int result;
+        boolean valid;
         if (game==null){
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            valid = false;
+            if (username == null || password == null) {
+                getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
+            } else {
+                valid = UserCred.chkPass(username, password);
+                if (!valid)
+                    getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
+            }
             // this must be a new session, so we will start a new Game
             System.out.println("Hangman.  New game.");
             game = new Hangman.Game();  // start new game.

@@ -10,7 +10,7 @@ public class WordPicker {
         try {
         EntityManager em = Data.DBUtil.getEM();
         Query query =  em.createQuery("select count(w) from Word w ");
-        long count = (long) query.getSingleResult(); 
+        long count = Long.parseLong(query.getSingleResult().toString()); 
         Random generator = new Random();
         int randkey = generator.nextInt((int)count)+1;
         Query query2  =  em.createQuery("select a.word from Word a where a.id=?1");

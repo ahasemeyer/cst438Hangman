@@ -1,29 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Data;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author shawn
+ */
 @Entity
-public class Word implements Serializable{
+@Table(name = "word")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Word.findAll", query = "SELECT w FROM Word w"),
+    @NamedQuery(name = "Word.findById", query = "SELECT w FROM Word w WHERE w.id = :id")})
+public class Word implements Serializable {
 
-        private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
-    
+    @Lob
+    @Column(name = "word", length = 2147483647)
     private String word;
 
-    public Integer getId() 
-    {
+    public Word() {
+    }
+
+    public Word(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public String getWord()
-    {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getWord() {
         return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
     }
 
     @Override
@@ -48,8 +82,7 @@ public class Word implements Serializable{
 
     @Override
     public String toString() {
-        return "Word[ id=" + id + " ]";
-    }    
-    
+        return "Data.Word[ id=" + id + " ]";
+    }
     
 }

@@ -16,5 +16,6 @@
         <img src="h7.gif">
         <br>
         <h2>Sorry. You lose. The word is <%= request.getAttribute("word") %></h2>
+        <a href="hangmanServlet">Play Again</a>
     </body>
 </html>
