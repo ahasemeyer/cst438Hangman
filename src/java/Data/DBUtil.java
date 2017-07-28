@@ -7,32 +7,15 @@ import javax.persistence.*;
  */
 public class DBUtil {
     
-    private static EntityManagerFactory emf = null;
+    private static final EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("cst438HangmanPU");
     
     
     public static EntityManager getEM() {
-        try {
-        if (emf==null){
-            getEMF();
-        } 
+ 
         return emf.createEntityManager();
-        } catch (Exception e){
-            System.out.println("Exception in getEM "+e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
     }
-    
-    private synchronized static void  getEMF() {
-        try {
-        if (emf==null){
-            emf = Persistence.createEntityManagerFactory("cst438HangmanPU");
-        } 
-        } catch (Exception e){
-            System.out.println("Excepton in getEMF "+e.getMessage());
-            e.printStackTrace();
-        }
-    }
+
     /**
      * Check game history to see if this user has used this word
      * @param word 
@@ -45,7 +28,7 @@ public class DBUtil {
         Query query = em.createQuery("select count(*) from History h where h.userName = ?1 and h.word = ?2");
         query.setParameter(1, userName);
         query.setParameter(2, word);                
-        long count = (long)(query.getSingleResult());
+        long count = Long.getLong(query.getSingleResult().toString());
         em.close();
         if (count==0) return false;
         return true;

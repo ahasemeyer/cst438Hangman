@@ -17,5 +17,6 @@
         <img src="<%= pictureFile%>">
         <br>
         <h2>Congratulations! You got it!</h2>
+        <a href="hangmanServlet">Play Again</a>
     </body>
 </html>
