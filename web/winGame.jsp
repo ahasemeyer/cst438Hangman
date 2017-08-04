@@ -10,13 +10,33 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Win Hangman</title>
+        <link rel="stylesheet" type="text/css" href="hm.css">
     </head>
     <body>
+        <nav>
+        <form action="hangmanServlet" method="post">
+        <fieldset>
+            <input type="hidden" name="logout" value="win">
+            <input type="submit" value="Logout">
+        </fieldset>
+        </form>
+        </nav>
         <h1>Hangman</h1>
-        <% String pictureFile = "h" + request.getAttribute("state") + ".gif";%>
-        <img src="<%= pictureFile%>">
+<%
+    final Object lock = session.getId().intern();
+    Hangman.Game game;
+    synchronized(lock) {
+        game = (Hangman.Game) session.getAttribute("game");
+    }
+%>
+        <img src="h<%= game.getState() %>.gif">
         <br>
         <h2>Congratulations! You got it!</h2>
-        <a href="hangmanServlet">Play Again</a>
+        <form action="hangmanServlet" method="post">
+        <fieldset>
+            <input type="hidden" name="reset" value="win">
+            <input type="submit" value="Play Again">
+        </fieldset>
+        </form>
     </body>
 </html>

@@ -28,6 +28,7 @@ public class Game {
     private ArrayList<String> wordlist;  // list of words
     private boolean debug = false;
     private Data.History history = null;
+    private String username;
     
     
     @Override
@@ -37,11 +38,12 @@ public class Game {
     }
     
     
-    public Game() 
+    public Game(String username) 
     {
+        this.username = username;
         startNewGame();
     }
-
+    
     public int getState()
     {
         return state;
@@ -64,7 +66,6 @@ public class Game {
         else 
             word = WordPicker.getWord();
         createDisplayWord();
-        String username = "Austin";                         // Hardcoded for just one name
         history = Data.DBUtil.createHistory(word,username); 
         System.out.println("Game  history="+history);    
     }
