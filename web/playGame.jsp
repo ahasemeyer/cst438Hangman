@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -20,6 +21,20 @@ and open the template in the editor.
         game = (Hangman.Game) session.getAttribute("game");
     }
 %>
+<c:choose>
+    <c:when test="${game == null}">
+        <header>
+            <form method="post" action="hangmanServlet">
+            <fieldset>
+                <legend>Login:</legend>
+                username: <input type="text" id="name" maxlength="255" pattern="[\w\@_\.-]+"  name="username" /><br/>
+                password: <input type="password" id="password" maxlength="127" pattern="[!-~]+" name="password" /><br/>
+                <input class="submit" type="submit" name="submit" value="Submit">
+            </fieldset>     
+            </form>
+        </header>
+    </c:when>
+    <c:otherwise>
         <nav>
         <form action="hangmanServlet" method="post">
         <fieldset>
@@ -38,6 +53,8 @@ and open the template in the editor.
             <input type="submit" value="Submit Letter">
         </fieldset>
         </form>
+    </c:otherwise>
+</c:choose>
     </body>
 </html>
 
