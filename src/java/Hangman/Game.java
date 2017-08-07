@@ -29,6 +29,7 @@ public class Game {
     private boolean debug = false;
     private Data.History history = null;
     private String username;
+    private String difficulty;
     
     
     @Override
@@ -59,12 +60,57 @@ public class Game {
         return displayWord.toString();
     }
     
+    
+    public String getDifficulty()
+    {
+        return difficulty;
+    }
+    
+    
     public void startNewGame() {
         state = 1;
+        String temp = difficulty;
+        String temp1 = WordPicker.getWord();
+        //printDifficulty();
+        System.out.print("Difficulty Level ");
+        System.out.println(temp);
+        
+
+        if(temp == "easy")
+        {
+            while(temp1.length() >= 5)
+            {
+                temp1 = WordPicker.getWord();
+                //System.out.print("Easy diff: ");
+                //System.out.println(temp1);
+            }
+            
+        }
+        if(temp == "medium")
+        {
+            while(temp1.length() >= 10 && temp1.length() <= 5)
+            {
+                temp1 = WordPicker.getWord();
+                //System.out.print("Medium diff: ");
+                //System.out.println(temp1);
+            }
+        }       
+        if(temp == "hard")
+        {
+            while(temp1.length() <= 10)
+            {
+                temp1 = WordPicker.getWord();
+                //System.out.print("Hard diff: ");
+                //System.out.println(temp1);
+            }
+        }
+        
+        
         if (debug) 
             word = "computer";
-        else 
-            word = WordPicker.getWord();
+        else  
+            word = temp1;
+            //word = WordPicker.getWord();
         createDisplayWord();
         history = Data.DBUtil.createHistory(word,username); 
         System.out.println("Game  history="+history);    

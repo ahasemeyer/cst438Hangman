@@ -1,5 +1,5 @@
 <%-- 
-    Document   : loseGame
+    Document   : winGame
     Created on : Jun 13, 2017, 10:16:13 AM
     Author     : Austin
 --%>

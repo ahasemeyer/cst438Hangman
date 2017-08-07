@@ -33,39 +33,60 @@ public class hangmanServlet extends HttpServlet {
         HttpSession session = request.getSession();
         final Object lock = session.getId().intern();
         Hangman.Game game;
+        String diff;
         synchronized(lock) {
             game = (Hangman.Game) session.getAttribute("game");
+            diff = (String) session.getAttribute("diff");
         }
         Data.History history = null;
         int result = -1;
         boolean valid;
-
-        if (game==null){
+        
+        if(diff==null)
+        {
+            System.out.println("Get difficulty ");
+            String check = "true";
+            synchronized(lock) {
+                session.setAttribute("diff", check);
+            }
+            getServletContext().getRequestDispatcher("/difficulty.jsp").forward(request,response);
+            
+        }
+        else if (game==null){
             /* validate input */
+            String difficulty = request.getParameter("difficulty");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            if (username == null || password == null)
+            System.out.print("Check difficulty: ");    
+            System.out.println(difficulty);
+            if (username == null || password == null && diff != null)
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
+            System.out.println("test1 "); 
             java.util.regex.Matcher unameMatch = UNAMEPAT.matcher(username);
             java.util.regex.Matcher pwordMatch = PWORDPAT.matcher(password);
             if (!unameMatch.find() || !pwordMatch.find())
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
+            System.out.println("test2 "); 
             username = unameMatch.group(1).toLowerCase();
             password = pwordMatch.group(1);
             valid = UserCred.chkPass(username, password);
             if (!valid)
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
-            // this must be a new session, so we will start a new Game
+
+            // this must be a new session, so we will start a new Game 
+            //
             System.out.println("Hangman.  New game.");
             game = new Hangman.Game(username);  // start new game.
             synchronized(lock) {
                 session.setAttribute("game", game);
+                session.setAttribute("diff", diff);
             }
             result=0;
         } else {
             String reset = request.getParameter("reset");
             String logout = request.getParameter("logout");
-            String guess = request.getParameter("guess");
+            String guess = request.getParameter("guess");       
+                
             if (reset != null) {
                 result = -1;
                 game.startNewGame();
