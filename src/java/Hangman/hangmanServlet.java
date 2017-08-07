@@ -102,33 +102,8 @@ public class hangmanServlet extends HttpServlet {
             System.out.println(diff);
             getServletContext().getRequestDispatcher("/hangmanServlet").forward(request,response);
         }
-        else if (game==null){
-            /* validate input */
-            String difficulty = request.getParameter("difficulty");
-            //String username = request.getParameter("username");
-            //String password = request.getParameter("password");
-            //System.out.print("Check difficulty: ");    
-            //System.out.println(difficulty);
-            System.out.print("Check diff: ");    
-            System.out.println(diff);
-            //System.out.print("Check user: ");    
-            //System.out.println(username);            
-//            if (username == null || password == null && diff != null)
-//                getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
-//            System.out.println("test1 "); 
-//            java.util.regex.Matcher unameMatch = UNAMEPAT.matcher(username);
-//            java.util.regex.Matcher pwordMatch = PWORDPAT.matcher(password);
-//            if (!unameMatch.find() || !pwordMatch.find())
-//                getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
-//            System.out.println("test2 "); 
-//            username = unameMatch.group(1).toLowerCase();
-//            password = pwordMatch.group(1);
-//            valid = UserCred.chkPass(username, password);
-//            if (!valid)
-//                getServletContext().getRequestDispatcher("/login.jsp").forward(request,response);
-
-            // this must be a new session, so we will start a new Game 
-            //
+        else if (game==null)
+        {
             System.out.println("Hangman.  New game.");
             game = new Hangman.Game(user);  // start new game.
             synchronized(lock) {
@@ -136,7 +111,9 @@ public class hangmanServlet extends HttpServlet {
                 session.setAttribute("diff", diff);
             }
             result=0;
-        } else {
+        } 
+        else 
+        {
             String reset = request.getParameter("reset");
             String logout = request.getParameter("logout");
             String guess = request.getParameter("guess");       
