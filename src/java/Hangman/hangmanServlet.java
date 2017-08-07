@@ -105,7 +105,7 @@ public class hangmanServlet extends HttpServlet {
         else if (game==null)
         {
             System.out.println("Hangman.  New game.");
-            game = new Hangman.Game(user);  // start new game.
+            game = new Hangman.Game(user, diff);  // start new game.
             synchronized(lock) {
                 session.setAttribute("game", game);
                 session.setAttribute("diff", diff);

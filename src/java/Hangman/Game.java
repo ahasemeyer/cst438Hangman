@@ -39,9 +39,10 @@ public class Game {
     }
     
     
-    public Game(String username) 
+    public Game(String username, String difficulty) 
     {
         this.username = username;
+        this.difficulty = difficulty; 
         startNewGame();
     }
     
@@ -71,37 +72,31 @@ public class Game {
         state = 1;
         String temp = difficulty;
         String temp1 = WordPicker.getWord();
-        //printDifficulty();
         System.out.print("Difficulty Level ");
         System.out.println(temp);
         
 
-        if(temp == "easy")
+        if("easy".equals(temp))
         {
-            while(temp1.length() >= 5)
+            while(temp1.length() > 3)
             {
                 temp1 = WordPicker.getWord();
-                //System.out.print("Easy diff: ");
-                //System.out.println(temp1);
+                System.out.print(temp1.length());
             }
             
         }
-        if(temp == "medium")
+        if("medium".equals(temp))
         {
-            while(temp1.length() >= 10 && temp1.length() <= 5)
+            while(temp1.length() > 6 && temp1.length() < 3)
             {
                 temp1 = WordPicker.getWord();
-                //System.out.print("Medium diff: ");
-                //System.out.println(temp1);
             }
         }       
-        if(temp == "hard")
+        if("hard".equals(temp))
         {
-            while(temp1.length() <= 10)
+            while(temp1.length() < 6)
             {
                 temp1 = WordPicker.getWord();
-                //System.out.print("Hard diff: ");
-                //System.out.println(temp1);
             }
         }
         
@@ -110,7 +105,6 @@ public class Game {
             word = "computer";
         else  
             word = temp1;
-            //word = WordPicker.getWord();
         createDisplayWord();
         history = Data.DBUtil.createHistory(word,username); 
         System.out.println("Game  history="+history);    
