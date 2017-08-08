@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="hm.css">
     </head>
     <body>
-        <div><h1>Choose Difficulty Level</h1></div>
+        <legend>Choose Difficulty Level</lengend>
         <header>
             <form method="post" action="hangmanServlet">
                 <fieldset>
